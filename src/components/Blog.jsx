@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import axiosInstance from "./axiosInstance"; 
+import axiosInstance from "../axiosInstance"; 
 import couple from '../assets/couple.jpg'
 import { Link } from "react-router-dom";
 const Blog = () => {
@@ -44,7 +44,7 @@ const Blog = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axiosInstance.get("/blog"); // Adjust if needed
+        const response = await axiosInstance.get("/blog");
         setBlogs(response.data);
       } catch (error) {
         setError("Failed to fetch blog data");

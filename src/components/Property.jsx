@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css'; 
 import 'slick-carousel/slick/slick-theme.css'; 
 import propertyImage from '../assets/property2.jpg'
-import axiosInstance from './axiosInstance';
+import axiosInstance from '../axiosInstance';
 
 const Property = () => {
   const [properties, setProperties] = useState([]);

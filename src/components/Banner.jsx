@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 import Slider from 'react-slick';
-import axiosInstance from './axiosInstance';
+import axiosInstance from '../axiosInstance';
 
 
 const settings = {

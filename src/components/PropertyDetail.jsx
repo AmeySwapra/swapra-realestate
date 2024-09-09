@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Heading, Text, VStack, Image, Spinner, Alert, AlertIcon } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
-import axiosInstance from './axiosInstance';
+import axiosInstance from '../axiosInstance';
 import propertyImage from '../assets/Property3.jpg';
 
 const PropertyDetail = () => {

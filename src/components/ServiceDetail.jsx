@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Heading, SimpleGrid, VStack, Text, Image, Spinner, Alert, AlertIcon } from '@chakra-ui/react';
-import axiosInstance from '../components/axiosInstance';
 import property1 from '../assets/Property3.jpg'
+import axiosInstance from '../axiosInstance';
 
 const ServiceDetail = () => {
   const [servicesData, setServicesData] = useState([]);

@@ -14,7 +14,7 @@ import {
   AlertIcon
 } from '@chakra-ui/react';
 import { Link, useParams } from 'react-router-dom';
-import axiosInstance from './axiosInstance';
+import axiosInstance from '../axiosInstance';
 import broker from '../assets/broker.jpg'; 
 
 const BlogDetail = () => {

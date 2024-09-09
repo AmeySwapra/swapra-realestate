@@ -12,9 +12,9 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import axiosInstance from './axiosInstance';
 import broker from '../assets/broker.jpg'; 
 import Pagination from './common/Pagination';
+import axiosInstance from '../axiosInstance';
 
 
 const BlogPage = () => {

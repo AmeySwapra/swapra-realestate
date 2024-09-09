@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { SearchIcon } from '@chakra-ui/icons';
-import axiosInstance from './axiosInstance';
+import axiosInstance from '../axiosInstance';
 import propertyImage from '../assets/Property3.jpg';
 import Pagination from './common/Pagination';
 
