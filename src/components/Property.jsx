@@ -3,7 +3,8 @@ import { Box, Heading, Image, Text, VStack } from '@chakra-ui/react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css'; 
 import 'slick-carousel/slick/slick-theme.css'; 
-import axios from 'axios';
+import propertyImage from '../assets/property2.jpg'
+import axiosInstance from './axiosInstance';
 
 const Property = () => {
   const [properties, setProperties] = useState([]);
@@ -12,7 +13,7 @@ const Property = () => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const response = await axios.get('https://66d80c4237b1cadd805324f3.mockapi.io/property');
+        const response = await axiosInstance.get('/properties');
         setProperties(response.data);
       } catch (error) {
         console.error('Error fetching properties:', error);
@@ -75,7 +76,7 @@ const Property = () => {
               mx="auto"
             >
               <Image
-                src="https://via.placeholder.com/300x200"
+                src={propertyImage}
                 alt={property.title}
                 borderRadius="md"
                 w="100%"

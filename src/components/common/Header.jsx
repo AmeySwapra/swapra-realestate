@@ -46,12 +46,12 @@ function Header() {
         />
         {/* Desktop Links */}
         <Flex display={{ base: 'none', lg: 'flex' }} gap="6" fontSize={{ md: '16px', lg: '18px' }}>
-          <Link href="#" _hover={{ textDecoration: 'none', color: 'blue.500' }}>Home</Link>
-          <Link href="#" _hover={{ textDecoration: 'none', color: 'blue.500' }}>About Us</Link>
-          <Link href="#" _hover={{ textDecoration: 'none', color: 'blue.500' }}>Service</Link>
-          <Link href="#" _hover={{ textDecoration: 'none', color: 'blue.500' }}>Product</Link>
-          <Link href="#" _hover={{ textDecoration: 'none', color: 'blue.500' }}>Blog</Link>
-          <Link href="#" _hover={{ textDecoration: 'none', color: 'blue.500' }}>Contact Us</Link>
+          <Link href="/" _hover={{ textDecoration: 'none', color: 'blue.500' }}>Home</Link>
+          <Link href="/about-us" _hover={{ textDecoration: 'none', color: 'blue.500' }}>About Us</Link>
+          <Link href="/service" _hover={{ textDecoration: 'none', color: 'blue.500' }}>Service</Link>
+          <Link href="/properties" _hover={{ textDecoration: 'none', color: 'blue.500' }}>Property</Link>
+          <Link href="/blog" _hover={{ textDecoration: 'none', color: 'blue.500' }}>Blog</Link>
+          <Link href="/contact" _hover={{ textDecoration: 'none', color: 'blue.500' }}>Contact Us</Link>
         </Flex>
         <Box display={{ base: 'none', lg: 'block' }}>
           <Button colorScheme="teal" variant="outline">
@@ -66,18 +66,19 @@ function Header() {
         placement="right"
         onClose={onClose}
         finalFocusRef={btnRef}
+        size={'xs'}
       >
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerBody>
             <Flex direction="column" gap="4" mt="8" fontSize="18px">
-              <Link href="#" onClick={onClose}>Home</Link>
-              <Link href="#" onClick={onClose}>About Us</Link>
-              <Link href="#" onClick={onClose}>Service</Link>
-              <Link href="#" onClick={onClose}>Product</Link>
-              <Link href="#" onClick={onClose}>Blog</Link>
-              <Link href="#" onClick={onClose}>Contact Us</Link>
+              <Link href="/" onClick={onClose}>Home</Link>
+              <Link href="/about-us" onClick={onClose}>About Us</Link>
+              <Link href="/service" onClick={onClose}>Service</Link>
+              <Link href="/properties" onClick={onClose}>Property</Link>
+              <Link href="/blog" onClick={onClose}>Blog</Link>
+              <Link href="/contact" onClick={onClose}>Contact Us</Link>
               <Button colorScheme="teal" variant="outline" mt="4" onClick={onClose}>
                 Sign-In
               </Button>

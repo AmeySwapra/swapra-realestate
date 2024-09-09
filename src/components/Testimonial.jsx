@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Flex, Heading, Text, Image, Icon } from '@chakra-ui/react';
 import { FaUsers } from 'react-icons/fa';
 import axios from 'axios';
+import avatar from '../assets/avatar.png'
 
 const SimpleTestimonial = () => {
   const [testimonials, setTestimonials] = useState([]);
@@ -88,7 +89,7 @@ const SimpleTestimonial = () => {
             >
               <Flex align="center" mb={3} justify="center">
                 <Image 
-                  src={testimonials[currentIndex].avatar} 
+                  src={avatar} 
                   alt={testimonials[currentIndex].name} 
                   borderRadius="full" 
                   boxSize="50px" 

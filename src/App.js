@@ -1,22 +1,30 @@
 import React from 'react'
-import Header from './components/common/Header';
-import AboutUs from './components/AboutUs';
-import Blog from './components/Blog';
-import Property from './components/Property';
-import Testimonial from './components/Testimonial';
-import ContactInfo from './components/ContactInfo';
-import Footer from './components/common/Footer';
+import HomePage from './pages/HomePage';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import AboutPage from './pages/AboutPage';
+import BlogPage from './pages/BlogPage'
+import SingleBlogPage from './pages/SingleBlogPage'
+import ContactPage from './pages/ContactPage'
+import PropertyPage from './pages/PropertyPage';
+import SinglePropertyPage from './pages/SinglePropertyPage';
+import ServicePage from './pages/ServicePage';
+
 
 function App() {
   return (
     <>
-       <Header/>
-       <AboutUs/>
-       <Blog/>
-       <Property/>
-       <Testimonial/>
-       <ContactInfo/>
-       <Footer/>
+        <BrowserRouter>
+           <Routes>
+              <Route path='/' element={<HomePage/>}/>
+              <Route path='/about-us' element={<AboutPage/>} />
+              <Route path='/blog' element={<BlogPage/>} />
+              <Route path='/single-blog/:id' element={<SingleBlogPage/>}/>
+              <Route path='/contact' element={<ContactPage/>}/>
+              <Route exact path="/properties" element={<PropertyPage/>} />
+              <Route path="/property/:id" element={<SinglePropertyPage/>} />
+              <Route path='/service' element={<ServicePage/>} />
+           </Routes>
+        </BrowserRouter>
     </>
   );
 }

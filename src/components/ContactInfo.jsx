@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 const ContactInfo = () => {
   return (
@@ -43,6 +44,7 @@ const ContactInfo = () => {
         </Box>
 
         {/* Right Side */}
+        <Link to={'/contact'}>
         <Button 
           colorScheme="teal" 
           variant="solid" 
@@ -52,6 +54,7 @@ const ContactInfo = () => {
         >
           Connect
         </Button>
+        </Link>
       </Flex>
     </Box>
   );

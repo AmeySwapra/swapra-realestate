@@ -1,11 +1,17 @@
-import React from 'react';
-import { Box, Heading, Image, Text, Button, VStack } from '@chakra-ui/react';
-import Slider from 'react-slick';
-import { ArrowForwardIcon } from '@chakra-ui/icons';
-import 'slick-carousel/slick/slick.css'; 
-import 'slick-carousel/slick/slick-theme.css'; 
-
+import React, { useState, useEffect } from "react";
+import { Box, Heading, Image, Text, Button, VStack, Spinner, Alert, AlertIcon } from "@chakra-ui/react";
+import Slider from "react-slick";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import axiosInstance from "./axiosInstance"; 
+import couple from '../assets/couple.jpg'
+import { Link } from "react-router-dom";
 const Blog = () => {
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -14,7 +20,7 @@ const Blog = () => {
     slidesToScroll: 1,
     arrows: true,
     autoplay: true,
-    autoplaySpeed: 5000, 
+    autoplaySpeed: 5000,
     responsive: [
       {
         breakpoint: 1024,
@@ -22,210 +28,105 @@ const Blog = () => {
           slidesToShow: 2,
           slidesToScroll: 1,
           infinite: true,
-          dots: true
-        }
+          dots: true,
+        },
       },
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await axiosInstance.get("/blog"); // Adjust if needed
+        setBlogs(response.data);
+      } catch (error) {
+        setError("Failed to fetch blog data");
+        console.error("Error fetching blog data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  if (loading) {
+    return (
+      <Box py="10" px={{ base: '4', md: '8', lg: '16' }} textAlign="center">
+        <Spinner size="xl" />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box py="10" px={{ base: '4', md: '8', lg: '16' }} textAlign="center">
+        <Alert status="error">
+          <AlertIcon />
+          {error}
+        </Alert>
+      </Box>
+    );
+  }
+
   return (
-    <Box py="10" px={{ base: '4', md: '8', lg: '16' }}>
+    <Box py="10" px={{ base: "4", md: "8", lg: "16" }}>
       <Heading textAlign="center" mb="8">
         Recent News & Articles
       </Heading>
       <Slider {...settings}>
-        {/* Card 1 */}
-        <VStack
-          p="4"
-          borderRadius="md"
-          boxShadow="lg"
-          bg="white"
-          textAlign="center"
-          spacing="4"
-          maxW="sm"
-          mx="auto"
-        >
-          <Image
-            src="https://via.placeholder.com/300x200"
-            alt="Blog 1"
+        {blogs.map((blog) => (
+          <VStack
+            key={blog.id}
+            p="4"
             borderRadius="md"
+            boxShadow="md"
+            bg="white"
+            textAlign="center"
+            spacing="4"
+            maxW="sm"
+            mx="auto"
+            h="400px"
             w="100%"
-            h="auto"
-          />
-          <Text fontSize="lg" fontWeight="bold">
-            Blog Title 1
-          </Text>
-          <Text fontSize="sm">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac
-            libero eget...
-          </Text>
-          <Button
-            as="a"
-            href="#"
-            variant="link"
-            colorScheme="teal"
-            rightIcon={<ArrowForwardIcon />}
+            mb="4"
           >
-            Read More
-          </Button>
-        </VStack>
-
-        {/* Card 2 */}
-        <VStack
-          p="4"
-          borderRadius="md"
-          boxShadow="lg"
-          bg="white"
-          textAlign="center"
-          spacing="4"
-          maxW="sm"
-          mx="auto"
-        >
-          <Image
-            src="https://via.placeholder.com/300x200"
-            alt="Blog 2"
-            borderRadius="md"
-            w="100%"
-            h="auto"
-          />
-          <Text fontSize="lg" fontWeight="bold">
-            Blog Title 2
-          </Text>
-          <Text fontSize="sm">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac
-            libero eget...
-          </Text>
-          <Button
-            as="a"
-            href="#"
-            variant="link"
-            colorScheme="teal"
-            rightIcon={<ArrowForwardIcon />}
-          >
-            Read More
-          </Button>
-        </VStack>
-
-        {/* Card 3 */}
-        <VStack
-          p="4"
-          borderRadius="md"
-          boxShadow="lg"
-          bg="white"
-          textAlign="center"
-          spacing="4"
-          maxW="sm"
-          mx="auto"
-        >
-          <Image
-            src="https://via.placeholder.com/300x200"
-            alt="Blog 3"
-            borderRadius="md"
-            w="100%"
-            h="auto"
-          />
-          <Text fontSize="lg" fontWeight="bold">
-            Blog Title 3
-          </Text>
-          <Text fontSize="sm">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac
-            libero eget...
-          </Text>
-          <Button
-            as="a"
-            href="#"
-            variant="link"
-            colorScheme="teal"
-            rightIcon={<ArrowForwardIcon />}
-          >
-            Read More
-          </Button>
-        </VStack>
-
-        {/* card 4 */}
-        <VStack
-          p="4"
-          borderRadius="md"
-          boxShadow="lg"
-          bg="white"
-          textAlign="center"
-          spacing="4"
-          maxW="sm"
-          mx="auto"
-        >
-          <Image
-            src="https://via.placeholder.com/300x200"
-            alt="Blog 3"
-            borderRadius="md"
-            w="100%"
-            h="auto"
-          />
-          <Text fontSize="lg" fontWeight="bold">
-            Blog Title 3
-          </Text>
-          <Text fontSize="sm">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac
-            libero eget...
-          </Text>
-          <Button
-            as="a"
-            href="#"
-            variant="link"
-            colorScheme="teal"
-            rightIcon={<ArrowForwardIcon />}
-          >
-            Read More
-          </Button>
-        </VStack>
-
-        {/* card 5 */}
-        <VStack
-          p="4"
-          borderRadius="md"
-          boxShadow="lg"
-          bg="white"
-          textAlign="center"
-          spacing="4"
-          maxW="sm"
-          mx="auto"
-        >
-          <Image
-            src="https://via.placeholder.com/300x200"
-            alt="Blog 3"
-            borderRadius="md"
-            w="100%"
-            h="auto"
-          />
-          <Text fontSize="lg" fontWeight="bold">
-            Blog Title 3
-          </Text>
-          <Text fontSize="sm">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac
-            libero eget...
-          </Text>
-          <Button
-            as="a"
-            href="#"
-            variant="link"
-            colorScheme="teal"
-            rightIcon={<ArrowForwardIcon />}
-          >
-            Read More
-          </Button>
-        </VStack>
-        {/* Add more cards as needed */}
+            <Box borderRadius="md" overflow="hidden" h="200px" w="100%" mb="4">
+              <Image
+                src={couple}
+                alt={blog.title}
+                borderRadius="md"
+                objectFit="cover"
+                h="100%"
+                w="100%"
+              />
+            </Box>
+            <Text fontSize="lg" fontWeight="bold">
+              {blog.title}
+            </Text>
+            <Text fontSize="sm">{blog.description}</Text>
+            <Link to={`/single-blog/${blog.id}`}>
+             <Button
+              as="a"
+              href="#"
+              variant="link"
+              colorScheme="teal"
+              rightIcon={<ArrowForwardIcon />}
+            >
+              Read More
+            </Button> 
+            </Link>
+          </VStack>
+        ))}
       </Slider>
     </Box>
   );
 };
 
 export default Blog;
-
-
