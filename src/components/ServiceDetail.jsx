@@ -51,7 +51,7 @@ const ServiceDetail = () => {
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8}>
         {servicesData.map((service) => (
           <VStack key={service.id} spacing="4" align="start">
-            <Image src={property1} alt={service.name} borderRadius="md" />
+            <Image src={service.image || property1} alt={service.name} borderRadius="md" />
             <Heading size="md">{service.name}</Heading>
             <Text>{service.description}</Text>
           </VStack>

@@ -81,7 +81,7 @@ const BlogDetail = () => {
         {/* Left Section - Image */}
         <Box flex="1" w="100%">
           <Image
-            src={broker}
+            src={blog.image || broker}
             alt={blog.title}
             borderRadius="md"
             objectFit="cover"

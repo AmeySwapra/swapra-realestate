@@ -52,7 +52,7 @@ const PropertyDetail = () => {
       {property ? (
         <VStack spacing="4" textAlign="left">
           <Image
-            src={propertyImage} // Ensure this is the desired image
+            src={property.image || propertyImage} 
             alt={property.name}
             borderRadius="md"
             w="100%"

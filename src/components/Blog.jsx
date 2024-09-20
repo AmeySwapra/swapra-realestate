@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import axiosInstance from "../axiosInstance"; 
 import couple from '../assets/couple.jpg'
 import { Link } from "react-router-dom";
+
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -99,7 +100,7 @@ const Blog = () => {
           >
             <Box borderRadius="md" overflow="hidden" h="200px" w="100%" mb="4">
               <Image
-                src={couple}
+                src={blog.image || couple}
                 alt={blog.title}
                 borderRadius="md"
                 objectFit="cover"
@@ -110,17 +111,20 @@ const Blog = () => {
             <Text fontSize="lg" fontWeight="bold">
               {blog.title}
             </Text>
-            <Text fontSize="sm">{blog.description}</Text>
+            <Text fontSize="sm">
+              {blog.description.length > 100
+                ? `${blog.description.slice(0, 100)}...`
+                : blog.description}
+            </Text>
             <Link to={`/single-blog/${blog.id}`}>
-             <Button
-              as="a"
-              href="#"
-              variant="link"
-              colorScheme="teal"
-              rightIcon={<ArrowForwardIcon />}
-            >
-              Read More
-            </Button> 
+              <Button
+                as="a"
+                variant="link"
+                colorScheme="teal"
+                rightIcon={<ArrowForwardIcon />}
+              >
+                Read More
+              </Button>
             </Link>
           </VStack>
         ))}
@@ -130,3 +134,4 @@ const Blog = () => {
 };
 
 export default Blog;
+

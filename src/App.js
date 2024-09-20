@@ -8,6 +8,8 @@ import ContactPage from './pages/ContactPage'
 import PropertyPage from './pages/PropertyPage';
 import SinglePropertyPage from './pages/SinglePropertyPage';
 import ServicePage from './pages/ServicePage';
+import ProfilePage from './pages/ProfilePage';
+
 
 
 function App() {
@@ -23,6 +25,7 @@ function App() {
               <Route exact path="/properties" element={<PropertyPage/>} />
               <Route path="/property/:id" element={<SinglePropertyPage/>} />
               <Route path='/service' element={<ServicePage/>} />
+              <Route path='/profile' element={<ProfilePage/>}/>
            </Routes>
         </BrowserRouter>
     </>

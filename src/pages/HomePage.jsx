@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Header from '../components/common/Header'
 import AboutUs from '../components/AboutUs'
 import Property from '../components/Property'
@@ -9,7 +9,11 @@ import Footer from '../components/common/Footer'
 import ServicesOverview from '../components/ServiceOverview'
 import ScrollToTop from '../components/common/ScrollToTop'
 import Banner from '../components/Banner'
+import { AuthContext } from '../context/AuthContext'
 function HomePage() {
+
+  const {currUser} = useContext(AuthContext);
+  console.log(currUser)
   return (
     <>
       <Header/>

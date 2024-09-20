@@ -2,13 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { ChakraProvider } from '@chakra-ui/react';
+import { AuthContextProvider } from './context/AuthContext';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
      <ChakraProvider>
-       <App/>
+      <GoogleOAuthProvider clientId='372209983605-b2tthqncphmrf4i20c6m01g38hl1mgba.apps.googleusercontent.com'>
+       <AuthContextProvider>
+          <App/>
+       </AuthContextProvider>
+      </GoogleOAuthProvider>
      </ChakraProvider>
   </React.StrictMode>
 );

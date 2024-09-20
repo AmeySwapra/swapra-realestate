@@ -101,7 +101,7 @@ const BlogCard = ({ blog }) => {
       flexDirection="column"
     >
       <Image
-        src={broker}
+        src={blog.image || broker}
         objectFit="cover"
         w="100%"
         h="200px"

@@ -76,7 +76,7 @@ const Property = () => {
               mx="auto"
             >
               <Image
-                src={propertyImage}
+                src={property.image || propertyImage}
                 alt={property.title}
                 borderRadius="md"
                 w="100%"
