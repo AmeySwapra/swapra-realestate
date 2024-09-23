@@ -115,48 +115,36 @@ function AuthModal({ isOpen, onClose }) {
 
   // Handle Google Sign-In
   const googleLogin = useGoogleLogin({
-    clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-    cookiePolicy: 'single_host_origin',
-    onSuccess: async (response) => {
-      try {
-        const googleUser = await axios.post(
-          'http://localhost:8080/api/auth/google-login',
-          { token: response.access_token },
-          { withCredentials: true }
-        );
-        const user = googleUser.data;
-        localStorage.setItem('user', JSON.stringify(user));
-        toast({
-          title: 'Google login successful.',
-          description: `Welcome, ${user.username}!`,
-          status: 'success',
-          duration: 5000,
-          isClosable: true,
-          position: 'top-right',
-        });
-        navigate('/properties');
-      } catch (error) {
-        toast({
-          title: 'Google login failed.',
-          description: error.response?.data?.message || 'Something went wrong!',
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
-          position: 'top-right',
-        });
-      }
-    },
-    onError: (error) => {
+    onSuccess: async tokenResponse => {
+      const token = tokenResponse.access_token;
+  
+      // Send token to your backend for verification
+      const response = await fetch('https://real-estate-backend-3-ydh8.onrender.com/api/auth/google-login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token }),
+      });
+  
+      const data = await response.json();
+      console.log(data);
       toast({
-        title: 'Google login failed.',
-        description: error.message || 'Something went wrong!',
-        status: 'error',
+        title: 'Registration successful.',
+        description: 'You have been registered successfully!',
+        status: 'success',
         duration: 5000,
         isClosable: true,
         position: 'top-right',
       });
     },
+    onError: error => {
+      console.log('Login Failed:', error);
+    },
+    redirect_uri: "https://justhomes.netlify.app",  // Make sure this matches your allowed redirect URI in Google Cloud
   });
+  
+  
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
