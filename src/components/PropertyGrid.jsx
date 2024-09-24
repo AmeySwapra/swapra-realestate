@@ -15,23 +15,14 @@ import {
   InputLeftElement,
   HStack,
   Flex,
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
-  useToast,
+  
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { SearchIcon } from '@chakra-ui/icons';
 import axiosInstance from '../axiosInstance';
 import propertyImage from '../assets/Property3.jpg';
 import Pagination from './common/Pagination';
-import UploadWidget from './UploadWidget';
+
 
 const PropertyGrid = () => {
   const [properties, setProperties] = useState([]);
@@ -41,28 +32,14 @@ const PropertyGrid = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const propertiesPerPage = 6;
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const toast = useToast();
-  const [newProperty, setNewProperty] = useState({
-    name: '',
-    price: '',
-    bhk: '',
-    area: '',
-    location: '',
-    image: ''
-  });
-  const [imageUrl, setImageUrl] = useState('');
+
+
 
   useEffect(() => {
     fetchProperties();
-    loadStoredProperties(); // Load stored properties from local storage
   }, []);
 
-  useEffect(() => {
-    if (imageUrl) {
-      setNewProperty(prev => ({ ...prev, image: imageUrl }));
-    }
-  }, [imageUrl]);
+
 
   const fetchProperties = async () => {
     try {
@@ -76,40 +53,9 @@ const PropertyGrid = () => {
     }
   };
 
-  const loadStoredProperties = () => {
-    const storedProperties = JSON.parse(localStorage.getItem('properties')) || [];
-    setProperties(prev => [...prev, ...storedProperties]); // Add stored properties to state
-  };
+ 
 
-  const handleAddProperty = async () => {
-    try {
-      await axiosInstance.post('https://restate-json.onrender.com/properties', newProperty);
-      const updatedProperties = [...properties, newProperty]; 
-      setProperties(updatedProperties);
-
-      
-      const storedProperties = JSON.parse(localStorage.getItem('properties')) || [];
-      localStorage.setItem('properties', JSON.stringify([...storedProperties, newProperty]));
-
-      toast({
-        title: 'Property Added.',
-        description: "The property has been successfully added.",
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      });
-      onClose(); 
-    } catch (error) {
-      console.error('Error adding property:', error);
-      toast({
-        title: 'Error.',
-        description: "There was an error adding the property.",
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
-    }
-  };
+  
 
   const filteredProperties = properties.filter((property) => {
     const query = searchQuery.toLowerCase();
@@ -132,21 +78,6 @@ const PropertyGrid = () => {
     setCurrentPage(page);
   };
 
-  const handleOpenModal = () => {
-    const isLoggedIn = !!localStorage.getItem('user'); 
-    if (isLoggedIn) {
-      onOpen(); // Open modal if logged in
-    } else {
-      toast({
-        title: 'Please Log In',
-        description: "You need to log in to add a property.",
-        status: 'warning',
-        duration: 3000,
-        isClosable: true,
-        position: 'top-right', // Position of the toast
-      });
-    }
-  };
 
   if (loading) {
     return (
@@ -174,9 +105,7 @@ const PropertyGrid = () => {
       </Heading>
 
       <HStack spacing="4" mb="6" justifyContent="center">
-        <Button colorScheme="teal" onClick={handleOpenModal}>
-          Add Property
-        </Button>
+       
 
         <InputGroup width="500px">
           <InputLeftElement>
@@ -239,60 +168,7 @@ const PropertyGrid = () => {
         />
       )}
 
-      {/* Add Property Modal */}
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Add Property</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Input
-              placeholder="Name"
-              mb={4}
-              value={newProperty.name}
-              onChange={(e) => setNewProperty({ ...newProperty, name: e.target.value })}
-            />
-            <Input
-              placeholder="Price"
-              mb={4}
-              value={newProperty.price}
-              onChange={(e) => setNewProperty({ ...newProperty, price: e.target.value })}
-            />
-            <Input
-              placeholder="BHK"
-              mb={4}
-              value={newProperty.bhk}
-              onChange={(e) => setNewProperty({ ...newProperty, bhk: e.target.value })}
-            />
-            <Input
-              placeholder="Area"
-              mb={4}
-              value={newProperty.area}
-              onChange={(e) => setNewProperty({ ...newProperty, area: e.target.value })}
-            />
-            <Input
-              placeholder="Location"
-              mb={4}
-              value={newProperty.location}
-              onChange={(e) => setNewProperty({ ...newProperty, location: e.target.value })}
-            />
-            <UploadWidget
-              uwConfig={{
-                cloudName: 'ddwi66ytp', 
-                uploadPreset: 'ameudhjdiu', 
-              }}
-              setImageUrl={setImageUrl} 
-            />
-          </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme="blue" onClick={handleAddProperty}>
-              Add Property
-            </Button>
-            <Button variant="ghost" onClick={onClose}>Cancel</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      
     </Box>
   );
 };
