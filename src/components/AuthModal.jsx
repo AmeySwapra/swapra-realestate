@@ -115,35 +115,70 @@ function AuthModal({ isOpen, onClose }) {
 
   // Handle Google Sign-In
   const googleLogin = useGoogleLogin({
-    onSuccess: async tokenResponse => {
-      const token = tokenResponse.access_token;
-  
-      // Send token to your backend for verification
-      const response = await fetch('https://real-estate-backend-3-ydh8.onrender.com/api/auth/google-login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token }),
-      });
-  
-      const data = await response.json();
-      console.log(data);
+    flow: 'auth-code',  
+    onSuccess: async (codeResponse) => {
+      try {
+        console.log('Authorization Code Response:', codeResponse);
+
+        
+        const response = await fetch('https://real-estate-backend-3-ydh8.onrender.com/api/auth/google-login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ code: codeResponse.code }),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          console.log('Backend Response:', data);
+
+          toast({
+            title: 'Google Login Successful.',
+            description: `Welcome, ${data.username}!`,
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+            position: 'top-right',
+          });
+        } else {
+          console.error('Google Login Failed:', data.message);
+          toast({
+            title: 'Google Login Failed.',
+            description: data.message || 'Unable to login with Google.',
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+            position: 'top-right',
+          });
+        }
+      } catch (error) {
+        console.error('Error during Google login:', error);
+        toast({
+          title: 'Login Failed.',
+          description: 'An unexpected error occurred. Please try again.',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+          position: 'top-right',
+        });
+      }
+    },
+    onError: (error) => {
+      console.error('Login Failed:', error);
       toast({
-        title: 'Registration successful.',
-        description: 'You have been registered successfully!',
-        status: 'success',
+        title: 'Google Login Failed.',
+        description: 'Unable to login with Google. Please try again.',
+        status: 'error',
         duration: 5000,
         isClosable: true,
         position: 'top-right',
       });
     },
-    onError: error => {
-      console.log('Login Failed:', error);
-    },
-    redirect_uri: "https://justhomes.netlify.app",  // Make sure this matches your allowed redirect URI in Google Cloud
+    useCredential: true,  
+    redirect_uri: "https://justhomes.netlify.app",  
   });
-  
+
   
 
   return (

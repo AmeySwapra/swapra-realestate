@@ -144,7 +144,7 @@ const PropertyGrid = () => {
                     {property.name}
                   </Text>
                   <Text fontSize="md" color="gray.500">
-                    Price: {property.price}
+                    Price: ₹ {property.price}
                   </Text>
                   <Text fontSize="sm" color="gray.500">
                     Location: {property.location}
